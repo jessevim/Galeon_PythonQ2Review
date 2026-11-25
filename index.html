@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>CS2 Python Reviewer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#fff;--fg:#1f2430;--mut:#667;--card:#f4f6fb;--ac:#2563eb;--bd:#d8dde8;--code:#0f172a;--cf:#e2e8f0;--ok:#15803d;--bad:#b91c1c;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11141b;--fg:#e6e9f0;--mut:#9aa3b5;--card:#1a1f2b;--ac:#6ea0ff;--bd:#2c3445;--code:#0a0d13;--ok:#4ade80;--bad:#f87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11141b;--fg:#e6e9f0;--mut:#9aa3b5;--card:#1a1f2b;--ac:#6ea0ff;--bd:#2c3445;--code:#0a0d13;--ok:#4ade80;--bad:#f87171;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:820px;margin:auto;padding:12px 14px 60px}
+h1{font-size:1.4rem;margin:.3em 0}h2{font-size:1.2rem;margin:1.2em 0 .3em}h3{font-size:1rem;margin:1em 0 .2em}
+nav{display:flex;gap:6px;overflow-x:auto;padding:6px 0;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+nav button,.b{border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:8px;padding:6px 11px;font:inherit;font-size:.9rem;cursor:pointer;white-space:nowrap}
+nav button.on,.b:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin:10px 0}
+.tip{border-left:4px solid var(--ac);padding:6px 10px;background:var(--card);border-radius:0 8px 8px 0;margin:8px 0;font-size:.95rem}
+pre{background:var(--code);color:var(--cf,#e2e8f0);padding:10px;border-radius:8px;overflow-x:auto;font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;margin:6px 0;white-space:pre}
+pre.o{border-left:4px solid var(--ok);color:#a7f3d0}
+label{font-size:.85rem;color:var(--mut);display:inline-block;margin:4px 8px 4px 0}
+input,select{font:inherit;font-size:.95rem;padding:5px 7px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--fg);max-width:100%}
+input[type=number]{width:70px}input.w{width:100%}
+table{border-collapse:collapse;font-size:.85rem;display:block;overflow-x:auto}td,th{border:1px solid var(--bd);padding:3px 8px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.88em;background:var(--card);padding:1px 4px;border-radius:4px}
+.q{margin:10px 0}.q button{display:block;width:100%;text-align:left;margin:4px 0}.ok{color:var(--ok)}.bad{color:var(--bad)}
+</style></head><body><main>
+<h1>CS2 Python Reviewer</h1>
+<div style="color:var(--mut);font-size:.9rem">Study Guides 1-4: Functions, Loops, Lists, Strings and Dates. Every demo runs in your browser and shows the Python it represents.</div>
+<nav id="nav"></nav>
+
+<section id="s1"><h2>1. Functions, Parameters, Arguments, Return</h2>
+<p>A <b>function</b> is a named block that does one task. Breaking a problem into functions is <i>decomposition</i>: a fuel-efficiency program becomes <code>get_distance()</code>, <code>get_fuel_used()</code>, <code>calculate_efficiency()</code>, <code>display_result()</code>. Benefits: readability, reusability, easier debugging and testing, easier improvement, collaboration.</p>
+<pre>def create_greeting(name):      # definition: name = PARAMETER
+    message = "Hello, " + name + "!"   # body (indented)
+    return message                      # sends a value back
+
+result = create_greeting("Ana") # call: "Ana" = ARGUMENT
+print(result)</pre>
+<div class="tip"><b>Parameter</b> = placeholder in the definition. <b>Argument</b> = real value in the call. <b>Definition</b> creates the function (nothing runs yet); the <b>call</b> runs it.</div>
+<div class="card"><h3>Try it: call a function</h3>
+<label>name <input id="f_n" value="Ana"></label><label>a <input id="f_a" type="number" value="4"></label><label>b <input id="f_b" type="number" value="7"></label>
+<label>mode <select id="f_m"><option value="r">return</option><option value="p">print only</option></select></label>
+<pre id="f_code"></pre><pre class="o" id="f_out"></pre>
+<div id="f_ex" style="font-size:.9rem"></div></div>
+<div class="tip"><b>return vs print:</b> <code>print</code> only shows text. <code>return</code> hands a value back so you can store it, compare it, or reuse it. A function without <code>return</code> gives back <code>None</code>, so <code>total = add(4,7)</code> would store None.</div>
+<h3>Returning booleans</h3>
+<pre>def is_passing(score):
+    return score &gt;= 75
+if is_passing(82):
+    print("Pass")</pre>
+<div class="card"><label>score <input id="p_s" type="number" value="82"></label><label>passing mark <input id="p_m" type="number" value="75"></label><pre class="o" id="p_o"></pre></div>
+</section>
+
+<section id="s2"><h2>2. Iterative Structures (Loops)</h2>
+<p>Loops repeat code. Use <b>for</b> when the count is known; use <b>while</b> when repetition depends on a condition that changes at runtime. Both rely on the same conditions you used in <code>if</code>.</p>
+<h3>for + range(start, stop, step)</h3>
+<p><code>stop</code> is <b>excluded</b>; <code>start</code> defaults to 0 and <code>step</code> to 1; a negative step counts down.</p>
+<div class="card"><label>start <input id="r_a" type="number" value="3"></label><label>stop <input id="r_b" type="number" value="10"></label><label>step <input id="r_c" type="number" value="2"></label>
+<label>keyword <select id="r_k"><option value="">none</option><option>break</option><option>continue</option></select></label><label>when i == <input id="r_x" type="number" value="7"></label>
+<pre id="r_code"></pre><pre class="o" id="r_out"></pre><div id="r_tr"></div></div>
+<div class="tip"><b>break</b> stops the whole loop. <b>continue</b> skips only the current pass. In nested loops they affect only the <i>inner</i> loop.</div>
+<h3>while: input validation</h3>
+<pre>p = input("Enter the password: ")
+while p != "password123":
+    print("Password is incorrect. Please try again.")
+    p = input("Enter the password: ")
+print("You can now continue using this program.")</pre>
+<p>Ground-up logic: (1) ask once, (2) test the condition, (3) the body must <i>change</i> the tested variable (re-ask), otherwise you get an infinite loop. Python also allows <code>while ... else</code>, where <code>else</code> runs when the condition turns false (not when <code>break</code> is used).</p>
+<div class="card"><label>try a password <input id="w_i" value="abcd"></label><button class="b" id="w_b">Submit</button><button class="b" id="w_r">Reset</button><pre class="o" id="w_o">Enter the password:</pre></div>
+<h3>Nested loops</h3>
+<p>For each pass of the outer loop, the inner loop runs completely. Outer = rows, inner = columns.</p>
+<div class="card"><label>rows <input id="n_r" type="number" value="3"></label><label>cols <input id="n_c" type="number" value="5"></label><label>inner keyword <select id="n_k"><option value="">none</option><option>break</option><option>continue</option></select></label><label>at column == <input id="n_x" type="number" value="3"></label>
+<pre id="n_code"></pre><pre class="o" id="n_out"></pre></div>
+<h3>Which loop? (Understanding Check)</h3>
+<table><tr><th>Scenario</th><th>Answer</th></tr>
+<tr><td>Numbers 1 to 20</td><td>single <code>for</code></td></tr><tr><td>Pass or fail</td><td>no loop, use <code>if</code>/<code>else</code></td></tr>
+<tr><td>Ask until correct password</td><td>single <code>while</code></td></tr><tr><td>5 rows x 8 seats</td><td>nested <code>for</code></td></tr>
+<tr><td>Average of 5 quizzes</td><td>single <code>for</code> (known count)</td></tr><tr><td>Welcome message once</td><td>no loop</td></tr>
+<tr><td>Multiplication table 1-10</td><td>nested <code>for</code></td></tr><tr><td>Another calculation? Yes</td><td>single <code>while</code></td></tr>
+<tr><td>3 sections x 25 students</td><td>nested <code>for</code></td></tr><tr><td>Read until user stops</td><td>single <code>while</code> (unknown count)</td></tr></table>
+</section>
+
+<section id="s3"><h2>3. Arrays (Lists in Python)</h2>
+<p>A list stores many values under one name. Each item has an <b>index</b> starting at <b>0</b>. Python lists can grow and mix types, so you can append, insert and remove items freely.</p>
+<pre>items = ["Notebook", "Pen", "Calculator", "Laptop", "Book"]
+print(items[2])     # Calculator
+for i in range(len(items)):   # traversal by index
+    print("Element at index", i, ":", items[i])
+print(items[1:4])   # slice: start included, end excluded</pre>
+<div class="card"><h3>List playground</h3><label>list (comma separated)</label><input class="w" id="l_i" value="Notebook, Pen, Calculator, Laptop, Book">
+<label>value/index <input id="l_v" value="Tablet"></label><label>idx <input id="l_x" type="number" value="2"></label><label>slice <input id="l_s" value="1:4"></label>
+<div id="l_b"></div><pre id="l_c"></pre><pre class="o" id="l_o"></pre></div>
+<div class="tip"><b>Traversal</b> = visiting each element. <b>Manipulation</b> = update, search, count, process. Search pattern: <code>found = False</code>, loop, set <code>found = True</code> and <code>break</code> on match. Process pattern: <code>total = 0</code>, loop adding, then <code>total / len(scores)</code>.</div>
+</section>
+
+<section id="s4"><h2>4. Strings, Date and Time</h2>
+<p>A <b>library</b> is prewritten code (a toolbox); a <b>method</b> belongs to a data type, such as <code>"text".strip()</code>. User input is messy, so clean it: <code>name.strip().title()</code>. Chaining works left to right.</p>
+<div class="card"><label>messy input</label><input class="w" id="t_i" value="   juan dela cruz   "><pre id="t_o" class="o"></pre></div>
+<p>Dates are objects, not text, so Python handles leap years and month lengths. <code>strftime</code> formats them, <code>strptime</code> parses text, <code>timedelta</code> does date arithmetic.</p>
+<pre>from datetime import datetime
+d = datetime(2026, 6, 3)
+print(d.strftime("%B %d, %Y"))   # %B month name, %d day (zero-padded), %Y 4-digit year
+print(d.strftime("%A"))          # weekday
+days_left = (deadline - today).days</pre>
+<div class="card"><label>event date <input type="date" id="d_a" value="2026-06-03"></label><label>today <input type="date" id="d_t" value="2026-05-22"></label><pre class="o" id="d_o"></pre></div>
+<div class="tip">Note: <code>%d</code> gives <code>03</code>, not <code>3</code>. The guide shows "June 3, 2026" as a sample; to match it exactly, use <code>f"{d.strftime('%B')} {d.day}, {d.year}"</code>.</div>
+</section>
+
+<section id="s5"><h2>5. Building a Program From the Ground Up</h2>
+<p>Capstone: <b>Student Score Analyzer</b> (Activity 3). Real programs grow in versions, which is exactly what GitHub commits show. Pick a version:</p>
+<div id="v_nav"></div><div id="v_exp" class="tip"></div><pre id="v_code"></pre>
+<div class="card"><h3>Run the final menu</h3><div id="m_b"></div><label>value <input id="m_v" value="95"></label><label>index <input id="m_i" type="number" value="1"></label><pre class="o" id="m_o">=== Student Score Analyzer ===</pre></div>
+</section>
+
+<section id="s6"><h2>6. Quiz</h2><div id="quiz"></div></section>
+<section id="s7"><h2>7. Guided Activities</h2><p>Each activity follows the same method: <b>decompose</b> (list the tasks), <b>plan</b> (inputs, processing, outputs), <b>code</b> in small versions, then <b>test</b> with sample data. Study the code, then try the live demo.</p>
+<h3>A. Modular Calculator (Guide 1)</h3>
+<div class="tip">Decompose: get numbers, choose operation, compute, display. One function per operation, each taking parameters and returning a value. Guard division by zero by returning <code>None</code>, and let the caller decide what to print.</div>
+<pre>def add(a, b):
+    return a + b
+def subtract(a, b):
+    return a - b
+def multiply(a, b):
+    return a * b
+def divide(a, b):
+    if b == 0:
+        return None
+    return a / b
+def calculate(op, a, b):       # decides which function to call
+    if op == "+": return add(a, b)
+    elif op == "-": return subtract(a, b)
+    elif op == "*": return multiply(a, b)
+    elif op == "/": return divide(a, b)
+result = calculate("/", 10, 4)
+if result is None:
+    print("Cannot divide by zero")
+else:
+    print("Result:", result)</pre>
+<div class="card"><label>a <input id="c_a" type="number" value="10"></label><select id="c_o"><option>+</option><option>-</option><option>*</option><option selected>/</option></select><label>b <input id="c_b" type="number" value="4"></label><pre class="o" id="c_out"></pre></div>
+<h3>B. Student Information Formatter (Guide 4, Activity 1)</h3>
+<div class="tip">Version 1 (commit: Initial version): input and print raw values. Version 2 (commit: Added string formatting): clean with <code>strip()</code>, <code>title()</code>, <code>upper()</code>, and count characters with <code>len()</code>. At least two string methods are required.</div>
+<pre>first = input("Enter first name: ").strip()
+last = input("Enter last name: ").strip()
+section = input("Enter section: ").strip()
+subject = input("Enter favorite subject: ").strip()
+full = first.title() + " " + last.title()
+print("Name:", full)
+print("Name Code:", full.upper())
+print("Section:", section.upper())
+print("Favorite Subject:", subject.title())
+print("Character Count:", len(full))</pre>
+<div class="card"><label>first <input id="b_f" value=" juan "></label><label>last <input id="b_l" value="dela cruz"></label><label>section <input id="b_s" value="magnesium"></label><label>subject <input id="b_j" value="computer science"></label><pre class="o" id="b_out"></pre></div>
+<p><b>Why len = 14?</b> It counts every character including spaces: "Juan Dela Cruz" is 4 + 1 + 4 + 1 + 4.</p>
+<h3>C. Deadline and Date Formatter (Guide 4, Activity 2)</h3>
+<div class="tip">Concept: build a <code>datetime</code> object from year, month, day (it validates the date), then format pieces. Invalid dates such as Feb 30 raise <code>ValueError</code>, so wrap in <code>try/except</code>.</div>
+<pre>from datetime import datetime
+title = input("Enter event title: ").strip()
+y, m, d = int(input("Year: ")), int(input("Month: ")), int(input("Day: "))
+try:
+    when = datetime(y, m, d)
+    print("Event:", title.upper())
+    print("Date: " + when.strftime("%B") + " " + str(when.day) + ", " + str(when.year))
+    print("Weekday:", when.strftime("%A"))
+except ValueError:
+    print("Invalid date")</pre>
+<div class="card"><label>title <input id="e_t" value="cs2 project submission"></label><label>year <input id="e_y" type="number" value="2026"></label><label>month <input id="e_m" type="number" value="6"></label><label>day <input id="e_d" type="number" value="3"></label><pre class="o" id="e_out"></pre></div>
+<h3>D. Student Event Registration Formatter (Guide 4, independent task)</h3>
+<div class="tip">Combine B and C in three commits: V1 basic input/output, V2 string formatting, V3 date formatting. Submission also needs a README.md, screenshots and a reflection written from your own code.</div>
+<div class="card"><label>first <input id="g_f" value="juan"></label><label>last <input id="g_l" value="dela cruz"></label><label>section <input id="g_s" value="magnesium"></label><label>event <input id="g_e" value="science fair"></label><label>date <input id="g_d" type="date" value="2026-06-03"></label><pre class="o" id="g_out"></pre></div>
+<h3>E. Process Your Data (Guide 3, Activity 2)</h3>
+<div class="tip">Traverse, slice, search the slice, update by index, then show the list again. Searching the slice (not the original) is the requirement.</div>
+<pre>items = [x.strip() for x in input().split(",")]
+idx, new = int(input()), input()
+start, end = map(int, input().split(":"))
+target = input()
+part = items[start:end]
+print("Found" if target in part else "Not found")
+items[idx] = new
+print(items)</pre>
+<div class="card"><label>list <input id="h_l" value="Notebook, Pen, Calculator, Laptop, Book"></label><label>index <input id="h_i" type="number" value="2"></label><label>new value <input id="h_n" value="Tablet"></label><label>slice <input id="h_s" value="1:4"></label><label>search <input id="h_t" value="Laptop"></label><pre class="o" id="h_out"></pre></div>
+<h2>Guide 2 Problem Sets (Annex A)</h2>
+<p>All four use the same recipe: a <b>validation helper</b> (loop until the input is good), a <b>user-defined function</b> with a parameter that does the loop work, then a <b>verification step</b> that checks the result against an independent calculation. Type into each console below; behaviour follows the sample runs.</p>
+<h3>Problem 1: Sum of Numbers (for loop)</h3>
+<div class="tip"><b>Plan:</b> (1) get a positive whole number; (2) <code>getSum(limit)</code> keeps a running <code>total = 0</code> and adds each i from 1 to limit; (3) compare with the formula n(n+1)/2. <code>isdigit()</code> rejects "-5" and "abc" (no minus sign, no letters); <code>&gt; 0</code> rejects zero. <code>range(1, limit + 1)</code> because stop is excluded. Use <code>//</code> so the expected value stays an integer.</div>
+<pre>def getSum(limit):
+    total = 0
+    for i in range(1, limit + 1):
+        total += i
+    return total
+
+def get_positive(prompt):
+    while True:
+        text = input(prompt)
+        if text.isdigit() and int(text) &gt; 0:
+            return int(text)
+        print("Invalid input.")
+        print("Please enter a positive whole number.")
+
+n = get_positive("Hi there! Please enter your age: ")
+expected = n * (n + 1) // 2
+print("Expected sum is", expected)
+result = getSum(n)
+print("After calling the function getSum, the sum of all numbers from 1 to", n, "is:", result)
+if result == expected:
+    print("Output Verified")
+else:
+    print("Output verification failed")</pre>
+<div class="card" id="k1"><input placeholder="type input"> <button class="b">Enter</button> <button class="b">Restart</button><pre class="o"></pre></div>
+<h3>Problem 2: Password Validation (while + break)</h3>
+<div class="tip"><b>Plan:</b> <code>while True</code> is intentional: we do not know how many tries it takes, and <code>break</code> is the only exit. Order of checks matters: blank first (invalid input), then match (success and break), otherwise wrong. Comparison with <code>==</code> is case-sensitive, so "Admin123" fails.</div>
+<pre>def checkPassword(correctPassword):
+    while True:
+        entered = input("Enter password: ")
+        if entered.strip() == "":
+            print("Invalid input. Password cannot be blank.")
+            continue                      # ask again
+        if entered == correctPassword:
+            print("Access granted.")
+            break                         # leave the loop
+        print("Incorrect password.")
+    print("Output verified.")
+
+checkPassword("admin123")</pre>
+<div class="card" id="k2"><input placeholder="try blank, hello, Admin123, admin123"> <button class="b">Enter</button> <button class="b">Restart</button><pre class="o"></pre></div>
+<h3>Problem 3: Number Patterns (nested loops)</h3>
+<div class="tip"><b>Plan:</b> outer loop = rows, inner loop = columns printing the column number with <code>end=""</code>, then <code>print()</code> ends the line. Per the hint, count rows in the outer loop and columns in the inner loop. Reset the column counter at the start of every row, otherwise it would equal rows x columns. Note: the guide writes <code>Else</code> with a capital E; Python needs lowercase <code>else</code>.</div>
+<pre>def verifyPattern(generatedRows, generatedColumns, rows, columns):
+    if generatedRows == rows and generatedColumns == columns:
+        print("Pattern verified.")
+    else:
+        print("Pattern verification failed.")
+
+def displayPattern(rows, columns):
+    generatedRows = 0
+    generatedColumns = 0
+    for r in range(1, rows + 1):
+        generatedRows += 1
+        generatedColumns = 0              # reset for each row
+        for c in range(1, columns + 1):
+            print(c, end="")
+            generatedColumns += 1
+        print()
+    print("Generated rows:", generatedRows)
+    print("Generated columns:", generatedColumns)
+    verifyPattern(generatedRows, generatedColumns, rows, columns)
+
+def get_positive(label):
+    while True:
+        text = input("Enter number of " + label.lower() + ": ")
+        if text.isdigit() and int(text) &gt; 0:
+            return int(text)
+        print("Invalid input.", label, "must be a positive whole number.")
+
+rows = get_positive("Rows")
+columns = get_positive("Columns")
+displayPattern(rows, columns)</pre>
+<div class="card" id="k3"><input placeholder="try -2, 0, 3, 4"> <button class="b">Enter</button> <button class="b">Restart</button><pre class="o"></pre></div>
+<h3>Problem 4: Skipping Multiples (continue)</h3>
+<div class="tip"><b>Plan:</b> test <code>n % 3 == 0</code> (remainder 0 means multiple of 3). When true, count it and <code>continue</code> so the print line is skipped for that pass only. Expected count is <code>limit // 3</code>, an independent calculation, so a match proves the loop skipped exactly the right numbers. The sample text says skippedMultiples but the required name is skipMultiples; follow the problem statement.</div>
+<pre>def verifyOutput(skippedCount, expectedSkippedCount):
+    if skippedCount == expectedSkippedCount:
+        print("Output verified.")
+    else:
+        print("Output verification failed.")
+
+def skipMultiples(limit):
+    skippedCount = 0
+    for n in range(1, limit + 1):
+        if n % 3 == 0:
+            skippedCount += 1
+            continue
+        print(n, end=" ")
+    print()
+    return skippedCount
+
+while True:
+    text = input("Enter limit: ")
+    if text.isdigit() and int(text) &gt; 0:
+        limit = int(text)
+        break
+    print("Invalid input.")
+    print("Please enter a positive whole number.")
+
+expectedSkippedCount = limit // 3
+print("Expected skipped count is:", expectedSkippedCount)
+skipped = skipMultiples(limit)
+print("After calling the function skipMultiples, the computed skipped count is:", skipped)
+verifyOutput(skipped, expectedSkippedCount)</pre>
+<div class="card" id="k4"><input placeholder="try -4, 10, 15"> <button class="b">Enter</button> <button class="b">Restart</button><pre class="o"></pre></div>
+<h3>Annex B rubric (15 points)</h3>
+<table><tr><th>Criterion</th><th>Pts</th><th>What earns full marks</th></tr><tr><td>Iterative structures</td><td>4</td><td>Right loop type; break/continue used as required</td></tr><tr><td>Functions with parameters</td><td>3</td><td>getSum, checkPassword, displayPattern, skipMultiples take and use arguments</td></tr><tr><td>Validation and verification</td><td>3</td><td>Bad input handled; result checked as specified</td></tr><tr><td>Correctness</td><td>3</td><td>Matches sample runs every time</td></tr><tr><td>Readability</td><td>2</td><td>Indentation, clear names, organization</td></tr></table>
+<div class="tip"><b>Self-check:</b> run each program with the sample inputs, plus 0, a negative number, letters, and a blank. Test at least one case that should fail validation before one that passes.</div>
+</section>
+
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const py=v=>typeof v=="number"?String(v):"'"+v+"'",pl=a=>"["+a.map(py).join(", ")+"]";
+const S=["Functions","Loops","Lists","Strings & Dates","Build","Quiz","Activities"];
+S.forEach((n,i)=>{let b=document.createElement("button");b.textContent=(i+1)+". "+n;b.onclick=()=>show(i+1);b.id="nb"+(i+1);$("nav").append(b)});
+function show(k){for(let i=1;i<=7;i++){$("s"+i).classList.toggle("on",i==k);$("nb"+i).classList.toggle("on",i==k)}scrollTo(0,0)}show(1);
+// 1 functions
+function fn(){let n=$("f_n").value,a=+$("f_a").value,b=+$("f_b").value,r=$("f_m").value=="r";
+$("f_code").textContent=`def add(a, b):\n    total = a + b\n    ${r?"return total":"print(total)"}\n\ndef create_greeting(name):\n    return "Hello, " + name + "!"\n\nresult = add(${a}, ${b})\nprint(result)\nprint(create_greeting("${n}"))`;
+$("f_out").textContent=(r?a+b:a+b+"\nNone")+"\nHello, "+n+"!";
+$("f_ex").innerHTML=`Arguments <b>${a}</b> and <b>${b}</b> fill parameters <code>a</code> and <code>b</code> by position. `+(r?"The returned value is stored in <code>result</code>.":"print shows the sum immediately, but <code>result</code> holds None.")}
+["f_n","f_a","f_b","f_m"].forEach(i=>$(i).oninput=fn);fn();
+function ps(){let s=+$("p_s").value,m=+$("p_m").value;$("p_o").textContent=`is_passing(${s}) returned ${s>=m?"True":"False"}\n${s>=m?"Pass":"(nothing printed)"}`}
+["p_s","p_m"].forEach(i=>$(i).oninput=ps);ps();
+// 2 range
+function rg(){let a=+$("r_a").value,b=+$("r_b").value,c=+$("r_c").value||1,k=$("r_k").value,x=+$("r_x").value,o=[],t="<table><tr><th>pass</th><th>i</th><th>action</th></tr>",p=0;
+for(let i=a;c>0?i<b:i>b;i+=c){p++;if(p>60)break;if(k&&i==x){t+=`<tr><td>${p}</td><td>${i}</td><td>${k}</td></tr>`;if(k=="break")break;continue}o.push(i);t+=`<tr><td>${p}</td><td>${i}</td><td>print</td></tr>`}
+$("r_code").textContent=`for i in range(${a}, ${b}, ${c}):\n`+(k?`    if i == ${x}:\n        ${k}\n`:"")+`    print(i, end=" ")\nprint("Done")`;
+$("r_out").textContent=o.join(" ")+" Done";$("r_tr").innerHTML=t+"</table>"}
+["r_a","r_b","r_c","r_k","r_x"].forEach(i=>$(i).oninput=rg);rg();
+let wc=0;$("w_b").onclick=()=>{let v=$("w_i").value;$("w_o").textContent+=" "+v+"\n"+(v=="password123"?"You can now continue using this program.\n(condition became False: loop ends)":"Password is incorrect. Please try again.\nEnter the password:")};
+$("w_r").onclick=()=>$("w_o").textContent="Enter the password:";
+function ne(){let R=+$("n_r").value,C=+$("n_c").value,k=$("n_k").value,x=+$("n_x").value,s="";
+for(let r=1;r<=Math.min(R,12);r++){for(let c=1;c<=Math.min(C,20);c++){if(k&&c==x){if(k=="break")break;continue}s+="*"}s+="\n"}
+$("n_code").textContent=`for row in range(1, ${R+1}):\n    for column in range(1, ${C+1}):\n`+(k?`        if column == ${x}:\n            ${k}\n`:"")+`        print("*", end="")\n    print()`;$("n_out").textContent=s}
+["n_r","n_c","n_k","n_x"].forEach(i=>$(i).oninput=ne);ne();
+// 3 lists
+const ops={
+"len":(a)=>["len(items)",a.length],"append":(a,v)=>{a.push(v);return["items.append("+py(v)+")","(list changed)"]},
+"insert":(a,v,x)=>{a.splice(x,0,v);return[`items.insert(${x}, ${py(v)})`,"(list changed)"]},
+"remove":(a,v)=>{let i=a.indexOf(v);if(i<0)return[`items.remove(${py(v)})`,"ValueError: not in list"];a.splice(i,1);return[`items.remove(${py(v)})`,"(list changed)"]},
+"pop":(a,v,x)=>{let r=a.splice(x,1)[0];return[`items.pop(${x})`,r===undefined?"IndexError":py(r)]},
+"index":(a,v)=>[`items.index(${py(v)})`,a.indexOf(v)<0?"ValueError":a.indexOf(v)],"count":(a,v)=>[`items.count(${py(v)})`,a.filter(e=>e===v).length],
+"sorted":a=>["sorted(items)",pl([...a].sort((p,q)=>p>q?1:-1))],"sort":a=>{a.sort((p,q)=>p>q?1:-1);return["items.sort()","(list changed)"]},
+"reverse":a=>{a.reverse();return["items.reverse()","(list changed)"]},
+"sum/min/max":a=>a.every(e=>typeof e=="number")?["sum / min / max",a.reduce((p,q)=>p+q,0)+" / "+Math.min(...a)+" / "+Math.max(...a)]:["sum(items)","TypeError: needs numbers"],
+"update":(a,v,x)=>{a[x]=v;return[`items[${x}] = ${py(v)}`,"(list changed)"]},
+"index [i]":(a,v,x)=>[`items[${x}]`,a[x]===undefined?"IndexError: out of range":py(a[x])],
+"slice":(a,v,x,s)=>{let[p,q]=s.split(":").map(Number);return[`items[${s}]`,pl(a.slice(p,q))]},"clear":a=>{a.length=0;return["items.clear()","(list changed)"]}};
+let L=[];const parse=s=>s.split(",").map(e=>e.trim()).filter(e=>e!=="").map(e=>isNaN(e)?e:+e);
+function lshow(m){$("l_c").textContent="items = "+pl(L)+(m?"\n"+m[0]:"");$("l_o").textContent=m?String(m[1]):"(run an operation)"}
+Object.keys(ops).forEach(k=>{let b=document.createElement("button");b.className="b";b.textContent=k;b.onclick=()=>{let v=$("l_v").value;v=isNaN(v)||v===""?v:+v;let m=ops[k](L,v,+$("l_x").value,$("l_s").value);lshow(m)};$("l_b").append(b)});
+$("l_i").oninput=()=>{L=parse($("l_i").value);lshow()};$("l_i").oninput();
+// 4 strings
+function st(){let r=$("t_i").value,c=r.trim(),ti=c.toLowerCase().replace(/[a-z]+/g,w=>w[0].toUpperCase()+w.slice(1));
+$("t_o").textContent=`name = ${JSON.stringify(r)}\nname.strip()          -> ${JSON.stringify(c)}\n.strip().title()      -> '${ti}'\n.upper() / .lower()   -> '${c.toUpperCase()}' / '${c.toLowerCase()}'\nlen(clean_name)       -> ${ti.length}\n.count("a")           -> ${(c.toLowerCase().match(/a/g)||[]).length}\n.find("dela")         -> ${c.toLowerCase().indexOf("dela")}\nclean_name[0:4]       -> '${ti.slice(0,4)}'\n.isalpha()/.isdigit() -> ${/^[A-Za-z]+$/.test(c)?"True":"False"} / ${/^\d+$/.test(c)?"True":"False"}`}
+$("t_i").oninput=st;st();
+const M=["January","February","March","April","May","June","July","August","September","October","November","December"],W=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+function dt(){let a=new Date($("d_a").value+"T00:00:00Z"),t=new Date($("d_t").value+"T00:00:00Z");if(isNaN(a)||isNaN(t))return;
+let d=a.getUTCDate(),n=Math.round((a-t)/864e5);$("d_o").textContent=`strftime("%B %d, %Y") -> ${M[a.getUTCMonth()]} ${String(d).padStart(2,"0")}, ${a.getUTCFullYear()}\nf"{month} {d.day}, {d.year}" -> ${M[a.getUTCMonth()]} ${d}, ${a.getUTCFullYear()}\nstrftime("%A")          -> ${W[a.getUTCDay()]}\n(deadline - today).days -> ${n} ${n<0?"(already passed)":"days remaining"}`}
+["d_a","d_t"].forEach(i=>$(i).oninput=dt);dt();
+// 5 build
+const V=[["Version 1: Plan and hard-code. Start with data and a loop. Decompose first: display, search, average, update, menu. Traversal uses a for loop and range(len(...)).",`scores = [85, 90, 78, 92, 88]\nfor i in range(len(scores)):\n    print(i + 1, ":", scores[i])`],
+["Version 2: Extract functions. Each task gets a function; data enters through a parameter and results leave through return. Search uses the found-flag pattern; average uses an accumulator.",`def display_scores(scores):\n    for i in range(len(scores)):\n        print(i + 1, ":", scores[i])\n\ndef search_score(scores, target):\n    for s in scores:\n        if s == target:\n            return True\n    return False\n\ndef average(scores):\n    total = 0\n    for s in scores:\n        total += s\n    return total / len(scores)`],
+["Version 3: Add the menu. A while loop repeats until the user picks Exit (unknown count). if/elif chooses the function; else catches invalid choices; try/except stops bad numbers from crashing the program; break leaves the loop.",`scores = [85, 90, 78, 92, 88]\nwhile True:\n    print("=== Student Score Analyzer ===")\n    print("1. Display  2. Search  3. Average  4. Update  5. Exit")\n    choice = input("Enter your choice: ")\n    if choice == "1":\n        display_scores(scores)\n    elif choice == "2":\n        try:\n            t = int(input("Score to find: "))\n            print("Found" if search_score(scores, t) else "Not found")\n        except ValueError:\n            print("Please enter a whole number")\n    elif choice == "3":\n        print("Average:", average(scores))\n    elif choice == "5":\n        break\n    else:\n        print("Invalid choice")`],
+["Version 4: Update with validation (add this branch above the exit option). Never trust input: check the index is inside 0..len-1 before assigning, then redisplay. Wrap int() in try/except for non-numbers.",`    elif choice == "4":\n        try:\n            i = int(input("Index to update: "))\n            new = int(input("New score: "))\n        except ValueError:\n            print("Please enter whole numbers")\n            continue\n        if 0 <= i < len(scores):\n            scores[i] = new\n            display_scores(scores)\n        else:\n            print("Invalid index")`]];
+V.forEach((v,i)=>{let b=document.createElement("button");b.className="b";b.textContent="v"+(i+1);b.onclick=()=>{$("v_exp").textContent=v[0];$("v_code").textContent=v[1]};$("v_nav").append(b)});$("v_nav").firstChild.onclick();
+let sc=[85,90,78,92,88];const pr=s=>$("m_o").textContent+="\n"+s;
+[["1 Display",()=>pr(sc.map((s,i)=>(i+1)+" : "+s).join("\n"))],["2 Search",()=>{let t=+$("m_v").value;pr(sc.includes(t)?t+" found":t+" not found")}],["3 Average",()=>pr("Average: "+(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1))],
+["4 Update",()=>{let i=+$("m_i").value;if(i>=0&&i<sc.length){sc[i]=+$("m_v").value;pr("Updated: "+sc.join(", "))}else pr("Invalid index")}],["Clear",()=>$("m_o").textContent="=== Student Score Analyzer ==="]].forEach(([n,f])=>{let b=document.createElement("button");b.className="b";b.textContent=n;b.onclick=f;$("m_b").append(b)});
+// 6 quiz
+const Q=[["What does range(2, 10, 3) produce?",["2 5 8","2 5 8 11","3 6 9","2 5 8 10"],0,"Start 2, add 3 each time, stop before 10."],
+["Which is a parameter?",["The 5 in add(5, 3)","The a in def add(a, b)","The word return","The word add"],1,"Parameters live in the definition; arguments are in the call."],
+["A loop must run until the user types q. Best choice?",["for with range","while","if","nested for"],1,"Unknown number of repetitions means while."],
+["What prints? for n in range(1,6): if n==4: continue; print(n)",["1 2 3","1 2 3 5","1 2 3 4 5","5"],1,"continue skips only n=4."],
+["items = [10,20,30,40]. What is items[1:3]?",["[10, 20, 30]","[20, 30]","[20, 30, 40]","[10, 20]"],1,"Start included, end excluded."],
+["Which cleans '  juan dela cruz ' to 'Juan Dela Cruz'?",["name.upper()","name.strip().title()","len(name)","name.count()"],1,"strip removes edge spaces, title capitalizes each word."],
+["A function with no return statement gives back...",["0","an empty string","None","an error"],2,"Python returns None by default."],
+["In a nested loop, break stops...",["Both loops","The inner loop only","The program","Nothing"],1,"The outer loop continues with its next pass."],
+["What is the difference between a definition and a call?",["None","The definition creates the function; the call runs it","The call creates it; the definition runs it","Both run it"],1,"def alone executes nothing."],
+["def f(x): print(x*2). What does y = f(3) store in y?",["6","3","None","Error"],2,"print shows 6 but there is no return, so y is None."],
+["Why is modular programming useful?",["Longer code","Easier testing and debugging of one part at a time","Faster hardware","Removes the need for names"],1,"Small single-purpose functions can be checked separately."],
+["How many times does print run? for r in range(3): for c in range(4): print('*')",["7","12","3","4"],1,"3 outer x 4 inner = 12."],
+["A while loop never ends. Most likely cause?",["Wrong indentation of print","The variable in the condition is never changed","Using range","Using break"],1,"The body must change what the condition tests."],
+["What does range(10, 0, -1) print?",["0 to 9","10 down to 1","10 down to 0","Nothing"],1,"Stop (0) is excluded."],
+["scores = [85, 90, 78]. What is scores[-1]?",["85","90","78","Error"],2,"Negative indexes count from the end."],
+["Which finds how many times 'a' appears in a list or string?",["len()","count()","join()","strip()"],1,"count() returns the number of occurrences."],
+["Which method adds an item to the end of a list?",["add()","append()","insert_end()","push()"],1,"Python lists use append(); push() is not a Python list method."],
+["Which method turns a date object into readable text?",["strptime()","strftime()","timedelta()","today()"],1,"f = format; p = parse."],
+["datetime(2026,6,3).strftime('%A') returns...",["June","2026","Wednesday","03"],2,"%A is the weekday name."],
+["How do you get days remaining until a deadline?",["deadline + today","(deadline - today).days","len(deadline)","deadline.upper()"],1,"Subtracting dates gives a timedelta with .days."],
+["What does datetime(2026, 2, 30) do?",["Returns March 2","Raises ValueError","Returns Feb 28","Returns None"],1,"datetime validates dates; an impossible date raises ValueError."]];
+Q.forEach((q,i)=>{let d=document.createElement("div");d.className="q";d.innerHTML=`<b>${i+1}. ${esc(q[0])}</b>`;let f=document.createElement("div");q[1].forEach((o,j)=>{let b=document.createElement("button");b.className="b";b.textContent=o;b.onclick=()=>{f.innerHTML=j==q[2]?`<span class="ok">Correct. ${q[3]}</span>`:`<span class="bad">Not quite. ${q[3]}</span>`};d.append(b)});d.append(f);$("quiz").append(d)});
+</script>
+<script>
+const tt=s=>s.trim().toLowerCase().replace(/[a-z]+/g,w=>w[0].toUpperCase()+w.slice(1));
+const bind=(ids,f)=>{ids.forEach(i=>$(i).oninput=f);f()};
+bind(["c_a","c_o","c_b"],()=>{let a=+$("c_a").value,b=+$("c_b").value,o=$("c_o").value,r=o=="+"?a+b:o=="-"?a-b:o=="*"?a*b:(b==0?null:a/b);$("c_out").textContent=`calculate("${o}", ${a}, ${b}) -> ${r===null?"None":r}\n`+(r===null?"Cannot divide by zero":"Result: "+r)});
+bind(["b_f","b_l","b_s","b_j"],()=>{let n=tt($("b_f").value)+" "+tt($("b_l").value);$("b_out").textContent=`Name: ${n}\nName Code: ${n.toUpperCase()}\nSection: ${$("b_s").value.trim().toUpperCase()}\nFavorite Subject: ${tt($("b_j").value)}\nCharacter Count: ${n.length}`});
+bind(["e_t","e_y","e_m","e_d"],()=>{let y=+$("e_y").value,m=+$("e_m").value,d=+$("e_d").value,t=new Date(Date.UTC(y,m-1,d));$("e_out").textContent=t.getUTCMonth()!=m-1||t.getUTCDate()!=d?"Invalid date (ValueError caught)":`Event: ${$("e_t").value.trim().toUpperCase()}\nDate: ${M[m-1]} ${d}, ${y}\nYear: ${y}\nMonth: ${M[m-1]}\nDay: ${d}\nWeekday: ${W[t.getUTCDay()]}`});
+bind(["g_f","g_l","g_s","g_e","g_d"],()=>{let t=new Date($("g_d").value+"T00:00:00Z");if(isNaN(t))return;let n=tt($("g_f").value)+" "+tt($("g_l").value);$("g_out").textContent=`Student Event Registration Summary\nName: ${n}\nName Code: ${n.toUpperCase()}\nSection: ${$("g_s").value.trim().toUpperCase()}\nEvent: ${tt($("g_e").value)}\nEvent Date: ${M[t.getUTCMonth()]} ${t.getUTCDate()}, ${t.getUTCFullYear()}\nLanguage Used: Python\nString Feature Used: strip(), title(), upper()\nDate/Time Feature Used: datetime\nRegistration record created successfully.`});
+bind(["h_l","h_i","h_n","h_s","h_t"],()=>{let a=$("h_l").value.split(",").map(s=>s.trim()),i=+$("h_i").value,[p,q]=$("h_s").value.split(":").map(Number),sl=a.slice(p,q),t=$("h_t").value.trim(),o="Original: "+a.join(", ")+`\nSliced (${p}:${q}): `+sl.join(", ")+`\nSearch (sliced): ${t} ${sl.includes(t)?"is found":"is NOT found"} in the sliced list.\n`;if(i>=0&&i<a.length){a[i]=$("h_n").value;o+="Updated: "+a.join(", ")}else o+="IndexError: index out of range";$("h_out").textContent=o});
+</script>
+<script>
+const pos=v=>/^\d+$/.test(v.trim())&&+v>0,pc=v=>pos(v)&&+v<=200;
+function mk(id,fs,fin){let b=$(id),o=b.querySelector("pre"),i=b.querySelector("input"),[go,rs]=b.querySelectorAll("button"),k,vs;
+const reset=()=>{k=0;vs=[];o.textContent=fs[0].p};
+go.onclick=()=>{if(k>=fs.length)return;let v=i.value;i.value="";o.textContent+=v+"\n";let e=fs[k].chk(v);if(e){o.textContent+=e+"\n"+fs[k].p;return}vs.push(v.trim());k++;if(k<fs.length){o.textContent+=fs[k].p;return}o.textContent+=fin(vs).join("\n")+"\n\n(program ended: press Restart)"};
+rs.onclick=reset;reset()}
+mk("k1",[{p:"Hi there! Please enter your age: ",chk:v=>pos(v)?null:"Invalid input.\nPlease enter a positive whole number."}],([v])=>{let n=+v,s=0;for(let i=1;i<=n;i++)s+=i;let e=n*(n+1)/2;return["Expected sum is "+e,"After calling the function getSum, the sum of all numbers from 1 to "+n+" is: "+s,s==e?"Output Verified":"Output verification failed"]});
+mk("k2",[{p:"Enter password: ",chk:v=>v.trim()===""?"Invalid input. Password cannot be blank.":v!=="admin123"?"Incorrect password.":null}],()=>["Access granted.","Output verified."]);
+mk("k3",[{p:"Enter number of rows: ",chk:v=>pc(v)?null:"Invalid input. Rows must be a positive whole number (demo max 200)."},{p:"Enter number of columns: ",chk:v=>pc(v)?null:"Invalid input. Columns must be a positive whole number (demo max 200)."}],([r,c])=>{r=+r;c=+c;let row="";for(let j=1;j<=c;j++)row+=j;let L=[];for(let j=0;j<r;j++)L.push(row);L.push("Generated rows: "+r,"Generated columns: "+c,"Pattern verified.");return L});
+mk("k4",[{p:"Enter limit: ",chk:v=>pc(v)?null:"Invalid input.\nPlease enter a positive whole number (demo max 200)."}],([v])=>{let n=+v,o=[],sk=0;for(let i=1;i<=n;i++){if(i%3==0){sk++;continue}o.push(i)}let e=Math.floor(n/3);return["Expected skipped count is: "+e,o.join(" "),"After calling the function skipMultiples, the computed skipped count is: "+sk,sk==e?"Output verified.":"Output verification failed."]});
+</script></main></body></html>
