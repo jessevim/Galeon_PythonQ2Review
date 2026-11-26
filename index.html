@@ -96,11 +96,21 @@ print(items[1:4])   # slice: start included, end excluded</pre>
 <p>A <b>library</b> is prewritten code (a toolbox); a <b>method</b> belongs to a data type, such as <code>"text".strip()</code>. User input is messy, so clean it: <code>name.strip().title()</code>. Chaining works left to right.</p>
 <div class="card"><label>messy input</label><input class="w" id="t_i" value="   juan dela cruz   "><pre id="t_o" class="o"></pre></div>
 <p>Dates are objects, not text, so Python handles leap years and month lengths. <code>strftime</code> formats them, <code>strptime</code> parses text, <code>timedelta</code> does date arithmetic.</p>
-<pre>from datetime import datetime
+<pre>from datetime import datetime, date, timedelta
 d = datetime(2026, 6, 3)
 print(d.strftime("%B %d, %Y"))   # %B month name, %d day (zero-padded), %Y 4-digit year
 print(d.strftime("%A"))          # weekday
-days_left = (deadline - today).days</pre>
+
+# Days until a deadline: define BOTH dates first
+today = date(2026, 5, 22)          # use date.today() for the real current date
+deadline = date(2026, 6, 3)
+days_left = (deadline - today).days
+print("Days remaining:", days_left)
+
+# Parse text into a date, then do date arithmetic
+parsed = datetime.strptime("2026-06-03", "%Y-%m-%d").date()
+print(parsed == deadline)
+print(today + timedelta(days=7))   # one week after today</pre>
 <div class="card"><label>event date <input type="date" id="d_a" value="2026-06-03"></label><label>today <input type="date" id="d_t" value="2026-05-22"></label><pre class="o" id="d_o"></pre></div>
 <div class="tip">Note: <code>%d</code> gives <code>03</code>, not <code>3</code>. The guide shows "June 3, 2026" as a sample; to match it exactly, use <code>f"{d.strftime('%B')} {d.day}, {d.year}"</code>.</div>
 </section>
